@@ -84,117 +84,7 @@
    
    服务将在 `http://localhost:8001` 启动
 
-### 完整开发流程
 
-1. **同时启动所有服务**
-   ```bash
-   # 终端1: 启动前端
-   npm run dev
-   
-   # 终端2: 启动Node.js服务
-   cd service && pnpm dev
-   
-   # 终端3: 启动WebRTC服务
-   cd service/webrtc && python server.py
-   ```
-
-2. **代码检查**
-   ```bash
-   # 前端代码检查
-   npm run lint
-   
-   # 后端服务代码检查
-   cd service && pnpm lint
-   ```
-
-3. **构建测试**
-   ```bash
-   # 构建前端
-   npm run build
-   
-   # 构建后端服务
-   cd service && pnpm build
-   
-   # 构建Electron应用
-   npm run build:electron
-   ```
-
-### 开发环境要求
-
-- **Node.js**: ≥ 18.0.0
-- **Python**: ≥ 3.8
-- **pnpm**: 推荐使用pnpm作为包管理器
-- **Docker**: 可选，用于容器化部署
-
-#### 环境变量配置说明
-
-| 环境变量 | 说明 |
-|---------|------|
-| `VITE_APP_DEFAULT_USERNAME` | 用于前端登录系统的用户名，从而让Amadeus识别你的身份 |
-| `WEBRTC_API_URL` | WEBRTC的服务器API地址，Zeabur模板里已经内置了公共的WEBRTC服务器，你也可以自行参考文档自行搭建 |
-
-注意事项：
-- 确保你的项目符合 Zeabur 的部署要求
-- 如果你需要自定义域名，可以在 Zeabur 的控制面板中进行设置
-- 建议查看 [Zeabur 的官方文档](https://zeabur.com/docs) 获取更多部署相关信息
-
-### 使用 Docker Compose 部署
-
-如果你想在自己的服务器上部署，可以使用 Docker Compose 进行部署。
-
-#### 准备工作
-
-1. 确保你的服务器已安装 [Docker](https://docs.docker.com/get-docker/) 和 [Docker Compose](https://docs.docker.com/compose/install/)
-2. 准备好所有必需的环境变量（参考上方环境变量配置说明）
-
-#### Docker Compose 配置
-
-创建 `docker-compose.yml` 文件，内容如下：
-
-```yaml
-version: '3'
-services:
-  container:
-    image: ghcr.io/ai-poet/amadeus-system-new-alpha
-    ports:
-      - "3002:3002"  # 服务端口
-    environment:
-      - VITE_APP_DEFAULT_USERNAME=${VITE_APP_DEFAULT_USERNAME}
-      - WEBRTC_API_URL=${WEBRTC_API_URL}
-    restart: unless-stopped
-    networks:
-      - amadeus-network
-    volumes:
-      - ./logs:/app/service/logs  # 日志持久化存储
-networks:
-  amadeus-network:
-    driver: bridge
-```
-
-#### 部署步骤
-
-1. 创建 `.env` 文件，填入所需的环境变量
-2. 在 `docker-compose.yml` 所在目录运行：
-```bash
-docker-compose up -d
-```
-3. 服务将在后台启动，可以通过以下命令查看日志：
-```bash
-docker-compose logs -f
-```
-
-### 自行部署WebRTC服务
-
-在Zeabur模板中提供了公共WebRTC服务，但公共服务可能会不稳定，建议单独自行私有化部署WebRTC服务。
-
-#### Docker方式部署WebRTC
-
-克隆仓库后，进入代码仓库的service/webrtc文件夹，使用Dockerfile构建WebRTC服务镜像：
-
-```bash
-cd service/webrtc
-docker build -t amadeus-webrtc-service .
-```
 
 运行WebRTC服务容器：
 
@@ -215,8 +105,6 @@ docker run -d --name amadeus-webrtc \
   amadeus-webrtc-service
 ```
 
-这样部署后，你就可以通过 http://你的服务器IP:8001 访问你自己的WebRTC服务了。
-
 #### WebRTC服务环境变量说明
 
 以下是WebRTC服务的内置AI服务的环境变量说明，可以用于搭建公共服务：
@@ -235,47 +123,3 @@ docker run -d --name amadeus-webrtc \
 | `TIME_LIMIT` | WebRTC流的最大时间限制(秒) | 600 |
 | `CONCURRENCY_LIMIT` | 最大并发连接数 | 10 |
 
-#### 端口配置要求
-
-部署WebRTC服务时，需要确保服务器以下端口已开放：
-
-- 80: HTTP通信
-- 443: HTTPS通信
-- 3478: STUN/TURN服务（TCP）
-- 5349: STUN/TURN服务（TLS）
-- 49152-65535: 媒体流端口范围（UDP）
-
-> **注意**
-> 
-> 如果使用云服务提供商（如AWS、阿里云等），请确保在安全组/防火墙设置中开放这些端口。
-
-#### TURN服务器部署
-
-在生产环境中，为了处理复杂网络环境下的音视频穿透问题，通常需要部署TURN服务器。你可以：
-
-- 自行部署Coturn
-- 参考FastRTC部署文档进行AWS自动化部署
-
-##### 使用AWS自动部署TURN服务器
-
-FastRTC提供了一个自动化脚本，可在AWS上部署TURN服务器：
-
-1. 克隆FastRTC部署仓库
-2. 配置AWS CLI并创建EC2密钥对
-3. 修改参数文件，填入TURN用户名和密码
-4. 运行CloudFormation脚本自动部署
-
-详细步骤请参考FastRTC的自托管部署指南。
-
-部署完成后，可在WebRTC服务的代码中填入TURN服务器信息：
-
-```json
-{
-  "iceServers": [
-    {
-      "urls": "turn:你的TURN服务器IP:3478",
-      "username": "你设置的用户名",
-      "credential": "你设置的密码"
-    }
-  ]
-}
