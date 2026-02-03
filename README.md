@@ -1,35 +1,4 @@
-# Amadeus System New Alpha
 
-[English](README_EN.md) | 中文
-
-一个全新的Amadeus实验版本, EL PSY CONGROO~
-
-注意，此版本已经经过重构，和初版已经不同，文档已经更新，请查看文档。
-
-## 🤝 参与贡献
-
-欢迎加入 Amadeus System 的开发！我们期待你的贡献：
-
-- 🌟 提交 Issue 报告 Bug 或提出新功能建议
-- 📝 改进文档内容
-- 🔧 修复已知问题
-- ✨ 开发新功能
-- 🎨 改进用户界面
-
-任何形式的贡献都非常欢迎。让我们一起把 Amadeus System 变得更好！
-
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-
-## 演示视频
-
-[![BiliBili](https://img.shields.io/badge/BiliBili-视频演示1-ff69b4)](https://www.bilibili.com/video/BV1JnifYcEeM/?spm_id_from=333.1387.homepage.video_card.click)
-[![BiliBili](https://img.shields.io/badge/BiliBili-视频演示2-ff69b4)](https://www.bilibili.com/video/BV1ZnrcYkEKz/?spm_id_from=333.1007.top_right_bar_window_history.content.click)
-
-## 文档
-
-详细的说明文档请访问：[Amadeus System 文档中心](https://docs.amadeus-web.top)
-
-## 🚀 开发步骤
 
 ### 前端开发环境搭建
 
@@ -340,23 +309,3 @@ FastRTC提供了一个自动化脚本，可在AWS上部署TURN服务器：
     }
   ]
 }
-```
-
-> **提示**
-> 
-> 正确配置TURN服务器后，即使在复杂的网络环境（如对称NAT、企业防火墙后）也能保证音视频通信的稳定性。
-
-## 🙏 致谢
-
-感谢 **命运石之门 0** 提供的创意灵感
-
-感谢所有开源项目和贡献者
-
-感谢社区用户的反馈和建议
-
-*"The universe has a beginning, but no end. — Infinite.  
-Stars, too, have their own beginnings, but their own power results in their destruction. — Finite.  
-It is those who possess wisdom who are the greatest fools. History has shown us this.  
-You could say that this is the final warning from God to those who resist."*
-
-— **Steins;Gate 0**
