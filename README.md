@@ -126,36 +126,6 @@
 - **pnpm**: 推荐使用pnpm作为包管理器
 - **Docker**: 可选，用于容器化部署
 
-## 部署方法
-
-### 下载本地客户端
-
-项目提供了预编译的桌面客户端，支持 Windows系统：
-
-1. 访问 [GitHub Releases](https://github.com/ai-poet/amadeus-system-new/releases) 页面
-2. 安装并运行客户端
-3. 直接试用或者配置必要的参数
-
-### 客户端默认安装路径
-C:\Users\你的用户名\AppData\Local\Programs\Amadeus
-
-### 客户端内置服务的配置文件路径
-C:\Users\你的用户名\AppData\Local\Programs\Amadeus\resources\service\\.env 
-可以修改客户端使用的WEBRTC服务器地址
-
-本地客户端提供与Zeabur在线版本相同的功能，但无需服务器部署，适合个人使用。
-
-### 使用 Zeabur 一键部署(推荐)
-
-[![Deploy to Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/LMSUDW?referralCode=aipoet)
-
-#### 部署步骤
-
-1. 点击上方的 "Deploy to Zeabur" 按钮
-2. 如果你还没有 Zeabur 账号，需要先[注册](https://zeabur.com?referralCode=aipoet)。需要花费$5开通Developer计划,可使用WildCard虚拟信用卡开通,也可直接使用支付宝充值余额支付。
-3. 点击上方按钮一键部署到AWS香港区域，等待部署完成，然后如下图，填写环境变量，最后再点击Networking，生成域名，你就可以通过 Zeabur 提供的域名访问你的应用了
-
-
 #### 环境变量配置说明
 
 | 环境变量 | 说明 |
